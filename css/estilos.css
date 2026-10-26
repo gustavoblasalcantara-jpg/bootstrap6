@@ -1,0 +1,136 @@
+/* ==========================================================================
+   Pastelería Delicia · estilos propios
+   Se cargan DESPUÉS de Bootstrap 6 para personalizarlo sin tocar el framework.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Reto 3: paleta de la marca editando SOLO las variables --bs-primary-*
+   ("primary" ahora es rojo en botones, badges, pills, alertas…)
+   -------------------------------------------------------------------------- */
+:root {
+  --bs-primary-base: #d62828;
+  --bs-primary-bg: #d62828;
+  --bs-primary-fg: #b01e1e;
+  --bs-primary-fg-emphasis: #7f1414;
+  --bs-primary-bg-subtle: #fde3e3;
+  --bs-primary-bg-muted: #f9c4c4;
+  --bs-primary-border: #f19a9a;
+  --bs-primary-contrast: #ffffff;
+  --bs-primary-focus-ring: color-mix(in oklch, #d62828 45%, white);
+
+  /* Tipografía de la marca */
+  --bs-body-font-family: "Nunito Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Colores propios del diseño (no son de Bootstrap) */
+  --crema: #fff8f3;
+  --crema-2: #fdeee6;
+  --cacao: #3d2420;
+  --dorado: #e9a23b;
+  --titulos: "Fraunces", Georgia, serif;
+}
+
+html, body { overflow-x: clip; }
+body { background: var(--crema); color: var(--cacao); }
+h1, h2, h3, .titulo-seccion, .producto-nombre { font-family: var(--titulos); letter-spacing: -0.01em; text-wrap: balance; }
+
+/* ---------- Barra superior ---------- */
+.barra {
+  background: color-mix(in oklch, var(--crema) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #f1dcd3;
+}
+.marca { display: inline-flex; align-items: center; gap: .5rem; font-family: var(--titulos); font-size: 1.25rem; color: var(--cacao); text-decoration: none; }
+.marca strong { color: var(--bs-primary-base); }
+.marca-icono {
+  display: inline-grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 50%;
+  background: var(--bs-primary-bg-subtle); font-size: 1.3rem;
+}
+.btn-carrito { position: relative; gap: .4rem; }
+.badge-contador { background: var(--cacao); color: #fff; min-width: 1.6rem; }
+.badge-contador.rebote { animation: rebote .4s ease; }
+@keyframes rebote { 40% { transform: scale(1.35); } }
+
+/* ---------- Portada ---------- */
+.portada {
+  padding-block: clamp(3rem, 8vw, 6rem);
+  background:
+    radial-gradient(600px 380px at 85% 20%, #fbd0d0 0%, transparent 65%),
+    radial-gradient(500px 320px at 0% 100%, #fde7c8 0%, transparent 60%);
+}
+.titulo-portada { font-size: clamp(2.6rem, 6vw, 4.6rem); font-weight: 800; line-height: 1.02; margin-bottom: 1.25rem; }
+.titulo-portada em { font-style: italic; color: var(--bs-primary-base); }
+.aviso-descuento {
+  display: inline-block; padding: .65rem 1rem; border-radius: 12px;
+  background: #fff; border: 1px dashed var(--dorado);
+}
+.vitrina {
+  position: relative; aspect-ratio: 1; max-width: 420px; margin-inline: auto; border-radius: 50%;
+  background: radial-gradient(circle at 50% 45%, #fff 0 45%, var(--crema-2) 46% 100%);
+  box-shadow: inset 0 0 0 14px #fff, 0 30px 60px -30px rgba(176, 30, 30, .45);
+}
+.vitrina-item { position: absolute; font-size: clamp(3rem, 9vw, 5rem); filter: drop-shadow(0 12px 14px rgba(61, 36, 32, .2)); animation: flotar 6s ease-in-out infinite; }
+.v1 { top: 14%; left: 34%; font-size: clamp(4.5rem, 13vw, 7.5rem); }
+.v2 { top: 52%; left: 10%; animation-delay: -1.5s; }
+.v3 { top: 56%; right: 12%; animation-delay: -3s; }
+.v4 { bottom: 6%; left: 42%; animation-delay: -4.5s; }
+@keyframes flotar { 50% { transform: translateY(-10px) rotate(-4deg); } }
+
+/* ---------- Secciones ---------- */
+.seccion { padding-block: clamp(3rem, 7vw, 5.5rem); }
+.seccion-alt { background: #fff; }
+.ceja { font-size: .78rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--bs-primary-base); margin-bottom: .4rem; }
+.titulo-seccion { font-size: clamp(1.9rem, 4vw, 2.75rem); font-weight: 800; }
+
+/* ---------- Buscador y filtros ---------- */
+.buscador { max-width: 360px; }
+.filtros { flex-wrap: nowrap; overflow-x: auto; gap: .35rem; padding-bottom: .25rem; scrollbar-width: thin; }
+.filtros .nav-link { white-space: nowrap; border: 1px solid #f1dcd3; background: #fff; color: var(--cacao); }
+.filtros .nav-link.active { border-color: transparent; }
+.sin-resultados { padding: 2rem; text-align: center; border: 2px dashed #f1dcd3; border-radius: 16px; color: #8a6b64; }
+
+/* ---------- Tarjetas de producto ---------- */
+.producto { border: 1px solid #f1dcd3; border-radius: 18px; overflow: hidden; transition: transform .25s ease, box-shadow .25s ease; }
+.producto:hover { transform: translateY(-4px); box-shadow: 0 22px 40px -24px rgba(176, 30, 30, .5); }
+.producto-img { position: relative; display: grid; place-items: center; aspect-ratio: 4 / 3; }
+.producto-foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.producto:hover .producto-foto { transform: scale(1.06); }
+.producto-etiqueta { z-index: 1; }
+.producto-emoji { font-size: 4.2rem; transition: transform .35s ease; filter: drop-shadow(0 10px 12px rgba(61, 36, 32, .18)); }
+.producto:hover .producto-emoji { transform: scale(1.12) rotate(-5deg); }
+.producto-etiqueta { position: absolute; top: .75rem; left: .75rem; }
+.cat-tortas { background: linear-gradient(140deg, #fde2e8, #f9c6d3); }
+.cat-panes { background: linear-gradient(140deg, #fff1d6, #f8dcaa); }
+.cat-postres { background: linear-gradient(140deg, #efe6ff, #d9c8fb); }
+.cat-salados { background: linear-gradient(140deg, #e3f5e6, #bfe6c6); }
+.producto-nombre { font-size: 1.15rem; font-weight: 600; margin: 0; }
+.producto-precio { font-family: var(--titulos); font-size: 1.45rem; font-weight: 800; color: var(--bs-primary-fg); }
+
+/* ---------- Pedido especial ---------- */
+.formulario { border: 1px solid #f1dcd3; border-radius: 20px; box-shadow: 0 26px 50px -36px rgba(176, 30, 30, .55); }
+.formulario [aria-invalid="true"] { border-color: var(--bs-danger-base, #dc3545); }
+.beneficios .list-group-item { background: transparent; font-weight: 600; }
+
+/* ---------- Carrito ---------- */
+.item-carrito { display: flex; align-items: center; gap: .75rem; }
+.cantidad { min-width: 1.6rem; text-align: center; font-weight: 800; font-variant-numeric: tabular-nums; }
+.carrito-vacio { text-align: center; color: #8a6b64; padding-block: 1.5rem; }
+.resumen { display: grid; gap: .35rem; padding: 1rem; border-radius: 14px; background: var(--crema-2); }
+.resumen .total { padding-top: .5rem; margin-top: .25rem; border-top: 1px solid #ecd2c7; font-size: 1.2rem; }
+
+/* ---------- Pie ---------- */
+.pie { padding-block: 3rem; background: var(--cacao); color: #f6e9e4; }
+.pie .marca { color: #fff; }
+.pie .fg-3 { color: #d8c3bc !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* Celular: imágenes de producto más bajas para ver más productos por pantalla */
+@media (max-width: 575px) {
+  .producto-img { aspect-ratio: 16 / 9; }
+  .producto-emoji { font-size: 3.4rem; }
+}
+
+/* Portada con foto real */
+.foto-portada { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 28px; box-shadow: 0 30px 60px -30px rgba(176, 30, 30, .55); background: var(--crema-2); }
